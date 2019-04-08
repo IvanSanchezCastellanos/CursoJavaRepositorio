@@ -29,9 +29,9 @@ public class ControladorDeClientes {
 			return repository.findAll();
 		}
 		
-		@GetMapping("/clientes/{id}")
-		public Cliente cliente(@PathVariable Integer id) {
-			return repository.findById(id)
+		@GetMapping("/clientes/{matricula}")
+		public Cliente cliente(@PathVariable String matricula) {
+			return repository.findById(matricula)
 					.orElse(null);
 		}
 		
@@ -40,20 +40,21 @@ public class ControladorDeClientes {
 			return repository.save(cliente);
 		}
 		
-		@DeleteMapping("/clientes/{id}")
-		public void borrarCliente(@PathVariable Integer id) {
-			repository.deleteById(id);
+		@DeleteMapping("/clientes/{matricula}")
+		public void borrarCliente(@PathVariable String matricula) {
+			repository.deleteById(matricula);
 		}
-		@PutMapping("/clientes/{id}")
-		public Cliente actualizarCliente(@RequestBody Cliente cliente,@PathVariable Integer id) {
-			return repository.findById(id)
+		@PutMapping("/clientes/{matricula}")
+		public Cliente actualizarCliente(@RequestBody Cliente cliente,@PathVariable String matricula) {
+			return repository.findById(matricula)
 				.map(c -> {
 						c.setNombre(cliente.getNombre());
-						c.setValor(cliente.getValor());
+						c.setApellido(cliente.getApellido());
+						c.setDireccion(cliente.getDireccion());
 						return repository.save(c);
 					})
 				.orElseGet(()->{
-					cliente.setId(id);
+					cliente.setMatricula(matricula);
 					return repository.save(cliente);
 				});
 				

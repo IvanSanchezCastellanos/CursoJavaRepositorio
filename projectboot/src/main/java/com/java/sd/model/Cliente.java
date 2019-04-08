@@ -1,11 +1,14 @@
 package com.java.sd.model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Cliente {
 	
 	String Nombre;
 	String Apellido;	
 	String Direccion;
-	String  matricula;
+	String  Matricula;
 	
 	
 	
@@ -15,7 +18,7 @@ public class Cliente {
 		Nombre = nombre;
 		Apellido = apellido;
 		Direccion = direccion;
-		this.matricula = matricula;
+		this.Matricula = matricula;
 	}
 	
 	public String getNombre() {
@@ -37,10 +40,10 @@ public class Cliente {
 		Direccion = direccion;
 	}
 	public String getMatricula() {
-		return matricula;
+		return Matricula;
 	}
 	public void setMatricula(String matricula) {
-		this.matricula = matricula;
+		this.Matricula = matricula;
 	}
 	
 	
