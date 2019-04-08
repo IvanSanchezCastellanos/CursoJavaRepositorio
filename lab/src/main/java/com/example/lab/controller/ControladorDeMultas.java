@@ -21,40 +21,38 @@ public class ControladorDeMultas {
 	public ControladorDeMultas(MultaRepository repository) {
 		this.repository = repository;
 	}
-	
+
 	@GetMapping("/multas")
-	public List<Multa> multas(){
+	public List<Multa> multas() {
 		return repository.findAll();
 	}
-	
+
 	@GetMapping("/multas/{id}")
 	public Multa multa(@PathVariable Integer id) {
-		return repository.findById(id)
-				.orElse(null);
+		return repository.findById(id).orElse(null);
 	}
-	
+
 	@PostMapping("/multas")
 	public Multa nuevaMulta(@RequestBody Multa multa) {
 		return repository.save(multa);
 	}
-	
+
 	@DeleteMapping("/multas/{id}")
 	public void borrarMulta(@PathVariable Integer id) {
 		repository.deleteById(id);
 	}
+
 	@PutMapping("/multas/{id}")
-	public Multa actualizarMulta(@RequestBody Multa multa,@PathVariable Integer id) {
-		return repository.findById(id)
-			.map(c -> {
-					c.setMatricula(multa.getMatricula());
-					c.setCategoria(multa.getCategoria());
-					c.setCantidad(multa.getCantidad());
-					return repository.save(c);
-				})
-			.orElseGet(()->{
-				multa.setId(id);
-				return repository.save(multa);
-			});
-			
+	public Multa actualizarMulta(@RequestBody Multa multa, @PathVariable Integer id) {
+		return repository.findById(id).map(c -> {
+			c.setMatricula(multa.getMatricula());
+			c.setCategoria(multa.getCategoria());
+			c.setCantidad(multa.getCantidad());
+			return repository.save(c);
+		}).orElseGet(() -> {
+			multa.setId(id);
+			return repository.save(multa);
+		});
+
 	}
 }
