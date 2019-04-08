@@ -1,4 +1,4 @@
-package controller;
+package com.java.sd.projectboot.controller;
 
 
 import java.util.List;
@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.java.sd.model.*;
+import com.java.sd.projectboot.model.SbRepository;
+import com.java.sd.projectboot.model.entities.Cliente;
 @RestController
 public class ControladorDeClientes {
 	
@@ -30,7 +31,7 @@ public class ControladorDeClientes {
 		}
 		
 		@GetMapping("/clientes/{matricula}")
-		public Cliente cliente(@PathVariable String matricula) {
+		public Cliente cliente(@PathVariable Integer matricula) {
 			return repository.findById(matricula)
 					.orElse(null);
 		}
@@ -41,11 +42,11 @@ public class ControladorDeClientes {
 		}
 		
 		@DeleteMapping("/clientes/{matricula}")
-		public void borrarCliente(@PathVariable String matricula) {
+		public void borrarCliente(@PathVariable Integer matricula) {
 			repository.deleteById(matricula);
 		}
 		@PutMapping("/clientes/{matricula}")
-		public Cliente actualizarCliente(@RequestBody Cliente cliente,@PathVariable String matricula) {
+		public Cliente actualizarCliente(@RequestBody Cliente cliente,@PathVariable Integer matricula) {
 			return repository.findById(matricula)
 				.map(c -> {
 						c.setNombre(cliente.getNombre());
@@ -59,10 +60,6 @@ public class ControladorDeClientes {
 				});
 				
 		}
-		
-		
-		
-		
 		
 		
 		
